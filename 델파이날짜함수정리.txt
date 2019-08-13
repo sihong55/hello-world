@@ -1,0 +1,348 @@
+Delphi 날짜 함수 정리 
+
+//일자를 추출한다.
+function DateOf(const AValue: TDateTime): TDateTime;
+
+//시간을 추출한다.
+function TimeOf(const AValue: TDateTime): TDateTime;
+
+//평년,윤년을 구분하다.
+function IsInLeapYear(const AValue: TDateTime): Boolean;
+
+//오전,오후를 구분한다.
+function IsPM(const AValue: TDateTime): Boolean;
+
+//Word형의 년,월,일 파라메타의 유효성을 체크한다.
+function IsValidDate(const AYear, AMonth, ADay: Word): Boolean;
+
+//Word형의 시,분,초,밀리초 파라메타의 유효성을 체크한다.
+function IsValidTime(const AHour, AMinute, ASecond, AMilliSecond: Word): Boolean;
+
+//Word형의 년,월,일,시,분,초,밀리초 파라메타의 유효성을 체크한다.
+function IsValidDateTime(const AYear, AMonth, ADay, AHour, AMinute, ASecond, AMilliSecond: Word): Boolean;
+
+//ex) IsValidDateDay(2006,45) : 2006년의 45번째날이 유효한지를 체크한다.
+function IsValidDateDay(const AYear, ADayOfYear: Word): Boolean;
+
+//ex) IsValidDateWeek(2006,42) : 2006년의 42주차가 유효한지를 체크한다.
+function IsValidDateWeek(const AYear, AWeekOfYear, ADayOfWeek: Word): Boolean;
+
+//년,월,월의주차,요일 이 유효한지를 체크한다.
+//ex) IsValidDateMonthWeek(2006,2,1,2) : 2006년 2월의 1주차의 화요일이 유효한지를 체크한다.
+function IsValidDateMonthWeek(const AYear, AMonth, AWeekOfMonth, ADayOfWeek: Word): Boolean;
+
+//ex) WeeksInYear(Today) : 오늘이 년의 몇주차인지 리턴한다.
+function WeeksInYear(const AValue: TDateTime): Word;
+function WeeksInAYear(const AYear: Word): Word;
+
+//ex) DaysInYear(Today) : 오늘이 년의 몇일째인지 리턴한다.
+function DaysInYear(const AValue: TDateTime): Word;
+function DaysInAYear(const AYear: Word): Word;
+
+//) DaysInMonth(Today) : 해당월에 몇일까지 있는지 리턴한다.
+function DaysInMonth(const AValue: TDateTime): Word;
+function DaysInAMonth(const AYear, AMonth: Word): Word;
+
+//AValue의 값이 오늘이면 True를 리턴한다.
+function IsToday(const AValue: TDateTime): Boolean;
+
+//AValue, ABasis 같은날이면 True를 리턴한다.
+function IsSameDay(const AValue, ABasis: TDateTime): Boolean;
+
+
+//년을 추출한다.
+function YearOf(const AValue: TDateTime): Word;
+
+//월을 추출한다.
+function MonthOf(const AValue: TDateTime): Word;
+
+//년의 몇주차인지를 추출한다.
+function WeekOf(const AValue: TDateTime): Word;
+
+//일자만 추출한다.
+//ex) DayOf(StrToDate('2006-06-27')) : 27을 리턴한다.
+function DayOf(const AValue: TDateTime): Word;
+
+//시간을 추출한다(24시간단위)
+function HourOf(const AValue: TDateTime): Word;
+
+//분을 추출한다.
+function MinuteOf(const AValue: TDateTime): Word;
+
+//초를 추출한다.
+function SecondOf(const AValue: TDateTime): Word;
+
+//밀리초를 추출한다.
+function MilliSecondOf(const AValue: TDateTime): Word;
+
+//년도의 시작일
+function StartOfTheYear(const AValue: TDateTime): TDateTime;
+function StartOfAYear(const AYear: Word): TDateTime;
+
+//년도의 마지막일
+function EndOfTheYear(const AValue: TDateTime): TDateTime;
+function EndOfAYear(const AYear: Word): TDateTime;
+
+//월의 시작일
+function StartOfTheMonth(const AValue: TDateTime): TDateTime;
+function StartOfAMonth(const AYear, AMonth: Word): TDateTime;
+
+//월의 마지막일
+function EndOfTheMonth(const AValue: TDateTime): TDateTime;
+function EndOfAMonth(const AYear, AMonth: Word): TDateTime;
+
+//주의 시작일
+function StartOfTheWeek(const AValue: TDateTime): TDateTime;
+
+//주의 시작일(기준요일을 정할수 있다.)
+//1:월요일, 2:화요일, 3:수요일, 4:목요일 ,5:금요일 , 6:토요일 ,7:일요일
+function StartOfAWeek(const AYear, AWeekOfYear: Word; const ADayOfWeek: Word = 1): TDateTime;
+
+//주의 마지막일
+function EndOfTheWeek(const AValue: TDateTime): TDateTime;
+
+//주의 마지막일(기준요일을 정할수 있다.)
+//1:월요일, 2:화요일, 3:수요일, 4:목요일 ,5:금요일 , 6:토요일 ,7:일요일
+function EndOfAWeek(const AYear, AWeekOfYear: Word; const ADayOfWeek: Word = 7): TDateTime;
+
+
+
+function StartOfTheDay(const AValue: TDateTime): TDateTime;
+function StartOfADay(const AYear, AMonth, ADay: Word): TDateTime; overload;
+function StartOfADay(const AYear, ADayOfYear: Word): TDateTime; overload;
+function EndOfTheDay(const AValue: TDateTime): TDateTime;
+function EndOfADay(const AYear, AMonth, ADay: Word): TDateTime; overload;
+function EndOfADay(const AYear, ADayOfYear: Word): TDateTime; overload;
+
+
+//ex) MonthOfTheYear(Today) : 오늘일자를 Word형으로 리턴한다.
+function MonthOfTheYear(const AValue: TDateTime): Word;
+
+//ex) WeekOfTheYear(Today) : 오늘일자가 몇주차인지를 Word형으로 리턴한다.
+function WeekOfTheYear(const AValue: TDateTime): Word; overload;
+function WeekOfTheYear(const AValue: TDateTime; var AYear: Word): Word; overload;
+
+//ex) DayOfTheYear(Today) : 오늘일자가 올해의 몇일째인지를 Word형으로 리턴한다.
+function DayOfTheYear(const AValue: TDateTime): Word;
+
+//년의 시작일부터 해당일자까지의 시간을 모두 더해서 Word형으로 리턴한다.
+function HourOfTheYear(const AValue: TDateTime): Word;
+
+//년의 시작일부터 해당일자까지의 분을 모두 더해서 Word형으로 리턴한다.
+function MinuteOfTheYear(const AValue: TDateTime): LongWord;
+
+//년의 시작일부터 해당일자까지의 초을 모두 더해서 Word형으로 리턴한다.
+function SecondOfTheYear(const AValue: TDateTime): LongWord;
+
+//년의 시작일부터 해당일자까지의 밀리초을 모두 더해서 Word형으로 리턴한다.
+function MilliSecondOfTheYear(const AValue: TDateTime): Int64;
+
+//이달의 몇번째주 인지를 리턴한다.
+function WeekOfTheMonth(const AValue: TDateTime): Word; overload;
+function WeekOfTheMonth(const AValue: TDateTime; var AYear, AMonth: Word): Word; overload;
+
+//이달의 몇일째인지를 리턴한다.
+function DayOfTheMonth(const AValue: TDateTime): Word;
+
+//월의 시작일부터 해당일자까지의 시간의 합을 리턴한다.
+function HourOfTheMonth(const AValue: TDateTime): Word;
+
+//월의 시작일부터 해당일자까지의 분의 합을 리턴한다.
+function MinuteOfTheMonth(const AValue: TDateTime): Word;
+
+//월의 시작일부터 해당일자까지의 초의 합을 리턴한다.
+function SecondOfTheMonth(const AValue: TDateTime): LongWord;
+
+//월의 시작일부터 해당일자까지의 밀리초의 합을 리턴한다.
+function MilliSecondOfTheMonth(const AValue: TDateTime): LongWord;
+
+//해당일의 요일을 리턴한다.
+//1:월요일, 2:화요일, 3:수요일, 4:목요일 ,5:금요일 , 6:토요일 ,7:일요일
+function DayOfTheWeek(const AValue: TDateTime): Word;
+
+//AValue날짜의 주의 시작일부터 AValue날짜까지의 시간의 합을 계산한다.
+function HourOfTheWeek(const AValue: TDateTime): Word;
+
+//AValue날짜의 주의 시작일부터 AValue날짜까지의 분의 합을 계산한다.
+function MinuteOfTheWeek(const AValue: TDateTime): Word;
+
+//AValue날짜의 주의 시작일부터 AValue날짜까지의 초의 합을 계산한다.
+function SecondOfTheWeek(const AValue: TDateTime): LongWord;
+
+//AValue날짜의 주의 시작일부터 AValue날짜까지의 밀리초의 합을 계산한다.
+function MilliSecondOfTheWeek(const AValue: TDateTime): LongWord;
+
+//ex) HourOfTheDay(Time) : 24시간 단위로 Time까지의 시간의 합을 계산한다.
+function HourOfTheDay(const AValue: TDateTime): Word;
+
+//ex) MinuteOfTheDay(Time) : 24시간 단위로 Time까지의 분의 합을 계산한다.
+function MinuteOfTheDay(const AValue: TDateTime): Word;
+
+//ex) SecondOfTheDay(Time) : 24시간 단위로 Time까지의 초의 합을 계산한다.
+function SecondOfTheDay(const AValue: TDateTime): LongWord;
+
+//ex) MilliSecondOfTheDay(Time) : 24시간 단위로 Time까지의 밀리초의 합을 계산한다.
+function MilliSecondOfTheDay(const AValue: TDateTime): LongWord;
+
+//ex) MinuteOfTheHour(13:28:43:345) : 시간을 기준으로 분의 합을계산한다.
+function MinuteOfTheHour(const AValue: TDateTime): Word;
+
+//ex) SecondOfTheHour(13:28:43:345) : 시간을 기준으로 초의 합을계산한다.
+function SecondOfTheHour(const AValue: TDateTime): Word;
+
+//ex) MilliSecondOfTheHour(13:28:43:345) : 시간을 기준으로 밀리초의 합을계산한다.
+function MilliSecondOfTheHour(const AValue: TDateTime): LongWord;
+
+//ex) SecondOfTheMinute(13:28:43:345) : 분을 기준으로 초의 합을 계산한다.
+function SecondOfTheMinute(const AValue: TDateTime): Word;
+
+//ex) SecondOfTheMinute(13:28:43:345) : 초을 기준으로 밀리초의 합을 계산한다.
+function MilliSecondOfTheMinute(const AValue: TDateTime): LongWord;
+function MilliSecondOfTheSecond(const AValue: TDateTime): Word;
+
+
+//두날짜(시간) 사이에 년수를 리턴한다.
+function YearsBetween(const ANow, AThen: TDateTime): Integer;
+
+//두날짜(시간) 사이의 월수를 리턴한다.
+function MonthsBetween(const ANow, AThen: TDateTime): Integer;
+
+//두날짜(시간) 사이의 주수를 리턴한다.
+function WeeksBetween(const ANow, AThen: TDateTime): Integer;
+
+//두날짜(시간) 사이의 일수를 리턴한다.
+function DaysBetween(const ANow, AThen: TDateTime): Integer;
+
+//두날짜(시간) 사이의 시간을 리턴한다.
+function HoursBetween(const ANow, AThen: TDateTime): Int64;
+
+//두날자(시간) 사이의 분을 리턴한다.
+function MinutesBetween(const ANow, AThen: TDateTime): Int64;
+
+//두날짜(시간) 사이의 초를 리턴한다.
+function SecondsBetween(const ANow, AThen: TDateTime): Int64;
+
+//두날짜(시간) 사이의 밀리초를 리턴한다.
+function MilliSecondsBetween(const ANow, AThen: TDateTime): Int64;
+
+
+
+function YearSpan(const ANow, AThen: TDateTime): Double;
+function MonthSpan(const ANow, AThen: TDateTime): Double;
+function WeekSpan(const ANow, AThen: TDateTime): Double;
+function DaySpan(const ANow, AThen: TDateTime): Double;
+function HourSpan(const ANow, AThen: TDateTime): Double;
+function MinuteSpan(const ANow, AThen: TDateTime): Double;
+function SecondSpan(const ANow, AThen: TDateTime): Double;
+function MilliSecondSpan(const ANow, AThen: TDateTime): Double;
+
+
+//AValue일자에서 ANumberOfYears만큼의 년도를 증가한다.
+function IncYear(const AValue: TDateTime; const ANumberOfYears: Integer = 1): TDateTime;
+
+//AValue일자에서 ANumberOfWeeks만큼의 주를 증가한다.
+function IncWeek(const AValue: TDateTime; const ANumberOfWeeks: Integer = 1): TDateTime;
+
+//AValue일자에서 ANumberOfDays만큼의 일를 증가한다.
+function IncDay(const AValue: TDateTime; const ANumberOfDays: Integer = 1): TDateTime;
+
+//AValue일자(시간)에서 ANumberOfHours만큼의 시간를 증가한다.
+function IncHour(const AValue: TDateTime; const ANumberOfHours: Int64 = 1): TDateTime;
+
+//AValue일자(시간)에서 ANumberOfMinutes만큼의 분를 증가한다.
+function IncMinute(const AValue: TDateTime; const ANumberOfMinutes: Int64 = 1): TDateTime;
+
+//AValue일자(시간)에서 ANumberOfSeconds만큼의 초를 증가한다.
+function IncSecond(const AValue: TDateTime; const ANumberOfSeconds: Int64 = 1): TDateTime;
+
+//AValue일자(시간)에서 ANumberOfMilliSeconds만큼의 밀리초를 증가한다.
+function IncMilliSecond(const AValue: TDateTime; const ANumberOfMilliSeconds: Int64 = 1): TDateTime;
+
+//년,월,일,시,분,초,밀리초 ---> 날짜(시간)형으로 리턴한다.
+function EncodeDateTime(const AYear, AMonth, ADay, AHour, AMinute, ASecond, AMilliSecond: Word): TDateTime;
+
+//날짜(시간)형 ---> 년,월,일,시,분,초,밀리초 Word형으로 리턴한다.
+procedure DecodeDateTime(const AValue: TDateTime; out AYear, AMonth, ADay, AHour, AMinute, ASecond, AMilliSecond: Word);
+
+//ex) EncodeDateWeek(2006,25,2) : 2006년 25주차의 첫번째 화요일의 날자를 리턴한다.
+function EncodeDateWeek(const AYear, AWeekOfYear: Word; const ADayOfWeek: Word = 1): TDateTime;
+
+//ex) DecodeDateWeek(Today) : 오늘은 몇년 몇째주의 무슨요일인지를 리턴한다.
+procedure DecodeDateWeek(const AValue: TDateTime; out AYear, AWeekOfYear, ADayOfWeek: Word);
+
+//AYear년의 ADayOfYear번째일이 며칠인지 리턴한다.
+function EncodeDateDay(const AYear, ADayOfYear: Word): TDateTime;
+
+//AValue일자가 몇년의 몇일째인지를 구한다.
+procedure DecodeDateDay(const AValue: TDateTime; out AYear, ADayOfYear: Word);
+
+//년,월,월의몇주차,화요일 의 날짜를 리턴한다.
+function EncodeDateMonthWeek(const AYear, AMonth, AWeekOfMonth, ADayOfWeek: Word): TDateTime;
+
+//AValue의 년,월,월의몇주차, 요일 구한다.
+procedure DecodeDateMonthWeek(const AValue: TDateTime; out AYear, AMonth, AWeekOfMonth, ADayOfWeek: Word);
+
+//년,월,일,시,분,초,밀리초의 유효성을 체크하고 날짜를 구한다.
+function TryEncodeDateTime(const AYear, AMonth, ADay, AHour, AMinute, ASecond, AMilliSecond: Word; out AValue: TDateTime): Boolean;
+
+//AYear년의 AWeekOfYear주에 ADayOfWeek요일에 유효성을 체크하고 날짜를 리턴한다.
+function TryEncodeDateWeek(const AYear, AWeekOfYear: Word; out AValue: TDateTime; const ADayOfWeek: Word = 1): Boolean;
+
+//AYear년의 ADayOfYear번째날에 유효성을 체크하고 날짜를 구한다.
+function TryEncodeDateDay(const AYear, ADayOfYear: Word; out AValue: TDateTime): Boolean;
+
+//AYear(년) AMonth(월) AWeekOfMonth(월의주차) ADayOfWeek(요일) 유효성을 체크하고 날짜를 구한다.
+function TryEncodeDateMonthWeek(const AYear, AMonth, AWeekOfMonth, ADayOfWeek: Word; var AValue: TDateTime): Boolean;
+
+//A.날짜(시간) B.날짜(시간) 을 비교한다. A=B(0) , A>B(1) , Afunction CompareDateTime(const A, B: TDateTime): TValueRelationship;
+function CompareDate(const A, B: TDateTime): TValueRelationship;
+function CompareTime(const A, B: TDateTime): TValueRelationship;
+
+
+//A.날짜(시간) B.날짜(시간) 을 비교한다
+function SameDateTime(const A, B: TDateTime): Boolean;
+function SameDate(const A, B: TDateTime): Boolean;
+function SameTime(const A, B: TDateTime): Boolean;
+
+//오늘이 이달의 몇번째주인지 리턴한다.
+function NthDayOfWeek(const AValue: TDateTime): Word;
+
+//AValue날이 몇년,몇월,월의몇번째주,무슨요일 인지를 구한다.
+procedure DecodeDayOfWeekInMonth(const AValue: TDateTime; out AYear, AMonth, ANthDayOfWeek, ADayOfWeek: Word);
+
+//AYear(년), AMonth(월), ANthDayOfWeek(월의몇번째주), ADayOfWeek(요일) ----> 해당일자를 리턴한다.
+function EncodeDayOfWeekInMonth(const AYear, AMonth, ANthDayOfWeek, ADayOfWeek: Word): TDateTime;
+
+//AYear(년), AMonth(월), ANthDayOfWeek(월의몇번째주), ADayOfWeek(요일) 의 유효성을 체크하고 날짜를 구한다.
+function TryEncodeDayOfWeekInMonth(const AYear, AMonth, ANthDayOfWeek, ADayOfWeek: Word; out AValue: TDateTime): Boolean;
+
+
+procedure InvalidDateTimeError(const AYear, AMonth, ADay, AHour, AMinute, ASecond, AMilliSecond: Word; const ABaseDate: TDateTime = 0);
+procedure InvalidDateWeekError(const AYear, AWeekOfYear, ADayOfWeek: Word);
+procedure InvalidDateDayError(const AYear, ADayOfYear: Word);
+procedure InvalidDateMonthWeekError(const AYear, AMonth, AWeekOfMonth, ADayOfWeek: Word);
+procedure InvalidDayOfWeekInMonthError(const AYear, AMonth, ANthDayOfWeek, ADayOfWeek: Word);
+
+
+//날짜를 Double형으로 리턴한다.
+//0001년01월01일 ---> 1721425
+function DateTimeToJulianDate(const AValue: TDateTime): Double;
+
+//Double형을 날짜로 리턴한다.
+//1721425 ---> 0001년01월01일
+function JulianDateToDateTime(const AValue: Double): TDateTime;
+
+//AValue의 유효성을 체크하고 날짜를 리턴한다.
+function TryJulianDateToDateTime(const AValue: Double; out ADateTime: TDateTime): Boolean;
+
+//날짜를 Double형으로 리턴한다.
+//0001년01월01일 ---> ( -678575 )
+function DateTimeToModifiedJulianDate(const AValue: TDateTime): Double;
+
+//Double형을 날짜로 리턴한다.
+//( -678575 ) ---> 0001년01월01일
+function ModifiedJulianDateToDateTime(const AValue: Double): TDateTime;
+
+//AValue의 유효성을 체크하고 날짜를 리턴한다.
+function TryModifiedJulianDateToDateTime(const AValue: Double; out ADateTime: TDateTime): Boolean;
+
